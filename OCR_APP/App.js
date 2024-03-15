@@ -1,11 +1,10 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Appearance } from 'react-native';
+import { StyleSheet, Text, View} from 'react-native';
 import * as React from 'react';
-
-import { PaperProvider, useTheme, MD3DarkTheme as DarkTheme} from 'react-native-paper';
+import { PaperProvider, MD3DarkTheme, Surface, Button,MD3Colors} from 'react-native-paper';
 //import App from './src/App';
+
 const theme = {
-  ...DarkTheme,
+  ...MD3DarkTheme,
 };
 export default function App() {
   return (
@@ -13,9 +12,18 @@ export default function App() {
 
     <View>
       <Text>hello world</Text>
-    </View>
+    
 
+    <Surface style={styles.surface} elevation={5}>
+      <Button icon="youtube" mode="text" onPress={() => console.log('Youtube')}>yt</Button>
+    </Surface>  
+    <Button icon="youtube" mode="contained" onPress={() => console.log('Youtube')}>yt</Button>
+
+    </View>
     </PaperProvider>
   );
 }
 
+const styles = StyleSheet.create({
+  surface: {padding: 10,height: 70,width: 70,alignItems: 'center',justifyContent: 'center',},
+});
