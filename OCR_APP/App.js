@@ -6,10 +6,12 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import YoutubePlayer from 'react-native-youtube-iframe';
 import RNFS from 'react-native-fs';
+import {WebView} from 'react-native-webview';
 //import App from './src/App';
 
 const Stack = createNativeStackNavigator();
 const theme = {...MD3DarkTheme,};
+
 
 export default function App() {
   return (
@@ -187,16 +189,15 @@ function YTScreen({navigation}) {
 function BrowserScreen({navigation}) {
   return (
     <PaperProvider theme = {theme} style={styles.surface}>
-    <View style={{flex: 1,backgroundColor: "#27222b"}}>
+    <View style={{backgroundColor: "#27222b"}}>
     <StatusBar hidden/>
-
-    <Surface style={styles.surface} elevation={0} >
-      <Text style={styles.children} variant="headlineLarge">Browser</Text>
-      <Button compact="true" mode="contained" onPress={() => navigation.navigate("Home")}>
-        Go Home
-      </Button>
-    </Surface>  
-
+    <View style={{width:'100%',height:'100%'}}>
+      <WebView
+        scalesPageToFit={false}
+        source={{ uri: 'https://www.google.com' }}
+        onLoad={console.log('Loaded')}
+      />
+    </View>
     </View>
     </PaperProvider>
   );
