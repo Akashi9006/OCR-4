@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "react-native-fs": "^2.20.0",
+    "react-native-receive-sharing-intent": "^2.0.0"
+  }
+}

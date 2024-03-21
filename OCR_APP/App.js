@@ -5,6 +5,7 @@ import { PaperProvider, MD3DarkTheme, Surface, Button,TouchableRipple,Text, Icon
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import YoutubePlayer from 'react-native-youtube-iframe';
+import RNFS from 'react-native-fs';
 //import App from './src/App';
 
 const Stack = createNativeStackNavigator();
@@ -202,21 +203,49 @@ function BrowserScreen({navigation}) {
 }
 
 function FilesScreen({navigation}) {
+  // return (
+  //   <PaperProvider theme = {theme} style={styles.surface}>
+  //   <View style={{flex: 1,backgroundColor: "#27222b"}}>
+  //   <StatusBar hidden/>
+
+  //   <Surface style={styles.surface} elevation={0} >
+  //     <Text style={styles.surface} variant="headlineLarge">Downloads </Text>
+  //   </Surface> 
+  //   <Button style={styles.filebtn} compact="true" mode="contained" onPress={() => navigation.navigate("Home")}>
+  //       ← Home
+  //     </Button>
+  //   </View>
+  //   </PaperProvider>
+
+
+  // );
+  const [files, setFiles] = useState([]);
+
+  useEffect(() => {
+    listFiles();
+  }, []);
+
+  const listFiles = async () => {
+    try {
+      const path = RNFS.DocumentDirectoryPath; // or RNFS.ExternalDirectoryPath for external storage
+      const result = await RNFS.readDir(path);
+      setFiles(result);
+    } catch (error) {
+      console.error('Error listing files:', error);
+    }
+  };
+
   return (
-    <PaperProvider theme = {theme} style={styles.surface}>
-    <View style={{flex: 1,backgroundColor: "#27222b"}}>
-    <StatusBar hidden/>
-
-    <Surface style={styles.surface} elevation={0} >
-      <Text style={styles.children} variant="headlineLarge">Files</Text>
-      <Button compact="true" mode="contained" onPress={() => navigation.navigate("Home")}>
-        Go Home
-      </Button>
-    </Surface>  
-
+    <View>
+      <Text>Files:</Text>
+      <FlatList
+        data={files}
+        renderItem={({ item }) => <Text>{item.name}</Text>}
+        keyExtractor={(item) => item.path}
+      />
     </View>
-    </PaperProvider>
   );
+  
 }
 
 
@@ -225,4 +254,7 @@ const styles = StyleSheet.create({
   square: {padding: 15,margin: 10 ,height: 120 ,width: 150,alignItems: 'center',justifyContent: 'space-between', alignSelf:"center", backgroundColor:MD3Colors.primary80,borderRadius: 20},
   children: {padding: 0,margin: 0 ,alignItems:"flex-end",justifyContent: "space-evenly", alignSelf:"center", fontSize:28, fontWeight:"bold", color:MD3Colors.primary20,backgroundColor:MD3Colors.primary80},
   youtubePlayer: {alignSelf: 'stretch',height: 200,},
+  filebtn: {position: 'absolute', top:20,left:20,},
+  
+
 });
