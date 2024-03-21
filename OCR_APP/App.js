@@ -152,7 +152,7 @@ function YTScreen({navigation}) {
           const currentTime = e.currentTime / e.duration;
         }}
       />
-      <View style={{ height: 400 }}>
+      <View style={{ height: 400, alignSelf:"baseline" }}>
         <FlatList
           data={recommendations}
           keyExtractor={(item, index) => item.id + index}
@@ -164,7 +164,7 @@ function YTScreen({navigation}) {
                 refreshScreen();
               }}
             >
-              <View style={{ flexDirection: 'row', flex: 1, padding: 10, alignItems: 'center', flexWrap: 'wrap' }}>
+              <View style={{ flexDirection: 'row', padding: 10, alignItems: 'center', flexWrap: 'wrap' }}>
                 {item.snippet.thumbnails && item.snippet.thumbnails.medium && item.snippet.thumbnails.medium.url && (
                   <Image source={{ uri: item.snippet.thumbnails.medium.url }} style={{ aspectRatio: 16 / 9, height: 90, marginRight: 10 }} />
                 )}
