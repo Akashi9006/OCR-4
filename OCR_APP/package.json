@@ -24,7 +24,8 @@
     "react-native-web": "~0.19.6",
     "react-native-webview": "^13.8.1",
     "react-native-youtube": "^2.0.2",
-    "react-native-youtube-iframe": "^2.3.0"
+    "react-native-youtube-iframe": "^2.3.0",
+    "expo-file-system": "~16.0.8"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

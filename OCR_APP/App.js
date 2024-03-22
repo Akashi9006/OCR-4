@@ -5,7 +5,6 @@ import { PaperProvider, MD3DarkTheme, Surface, Button,TouchableRipple,Text, Icon
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import YoutubePlayer from 'react-native-youtube-iframe';
-import RNFS from 'react-native-fs';
 import {WebView} from 'react-native-webview';
 //import App from './src/App';
 
@@ -204,48 +203,23 @@ function BrowserScreen({navigation}) {
 }
 
 function FilesScreen({navigation}) {
-  // return (
-  //   <PaperProvider theme = {theme} style={styles.surface}>
-  //   <View style={{flex: 1,backgroundColor: "#27222b"}}>
-  //   <StatusBar hidden/>
-
-  //   <Surface style={styles.surface} elevation={0} >
-  //     <Text style={styles.surface} variant="headlineLarge">Downloads </Text>
-  //   </Surface> 
-  //   <Button style={styles.filebtn} compact="true" mode="contained" onPress={() => navigation.navigate("Home")}>
-  //       ← Home
-  //     </Button>
-  //   </View>
-  //   </PaperProvider>
-
-
-  // );
-  const [files, setFiles] = useState([]);
-
-  useEffect(() => {
-    listFiles();
-  }, []);
-
-  const listFiles = async () => {
-    try {
-      const path = RNFS.DocumentDirectoryPath; // or RNFS.ExternalDirectoryPath for external storage
-      const result = await RNFS.readDir(path);
-      setFiles(result);
-    } catch (error) {
-      console.error('Error listing files:', error);
-    }
-  };
-
   return (
-    <View>
-      <Text>Files:</Text>
-      <FlatList
-        data={files}
-        renderItem={({ item }) => <Text>{item.name}</Text>}
-        keyExtractor={(item) => item.path}
-      />
+    <PaperProvider theme = {theme} style={styles.surface}>
+    <View style={{flex: 1,backgroundColor: "#27222b"}}>
+    <StatusBar hidden/>
+
+    <Surface style={styles.surface} elevation={0} >
+      <Text style={styles.surface} variant="headlineLarge">Downloads </Text>
+    </Surface> 
+    <Button style={styles.filebtn} compact="true" mode="contained" onPress={() => navigation.navigate("Home")}>
+        ← Home
+      </Button>
     </View>
+    </PaperProvider>
+
+
   );
+  
   
 }
 
