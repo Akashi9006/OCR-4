@@ -18,6 +18,7 @@ export default function App() {
         <Stack.Screen name="Youtube" component={YTScreen} />
         <Stack.Screen name="Browser" component={BrowserScreen} />
         <Stack.Screen name="Files" component={FilesScreen} />
+        <Stack.Screen name="Mirror" component={MirrorScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -52,6 +53,14 @@ function HomeScreen({navigation}) {
           <Text style={styles.children} variant="headlineLarge">Files</Text>
         </View>
       </TouchableRipple>
+
+      <TouchableRipple rippleColor="rgba(0, 0, 0, .32)" onPress={() => navigation.navigate('Mirror')}>
+        <View style={styles.square} elevation={1}>
+          <Icon  style={styles.children} color={MD3Colors.primary20} source="fit-to-screen-outline" size={50} />
+          <Text style={styles.children} variant="headlineLarge">Mirror</Text>
+        </View>
+      </TouchableRipple>
+
     </Surface>  
 
     </View>
@@ -209,6 +218,24 @@ function FilesScreen({navigation}) {
 
     <Surface style={styles.surface} elevation={0} >
       <Text style={styles.children} variant="headlineLarge">Files</Text>
+      <Button compact="true" mode="contained" onPress={() => navigation.navigate("Home")}>
+        Go Home
+      </Button>
+    </Surface>  
+
+    </View>
+    </PaperProvider>
+  );
+}
+
+function MirrorScreen({navigation}) {
+  return (
+    <PaperProvider theme = {theme} style={styles.surface}>
+    <View style={{flex: 1,backgroundColor: "#27222b"}}>
+    <StatusBar hidden/>
+
+    <Surface style={styles.surface} elevation={0} >
+    <Text style={styles.children} variant="headlineLarge">Mirror</Text>
       <Button compact="true" mode="contained" onPress={() => navigation.navigate("Home")}>
         Go Home
       </Button>
