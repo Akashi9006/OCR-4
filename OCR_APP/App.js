@@ -19,7 +19,6 @@ export default function App() {
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Youtube" component={YTScreen} />
         <Stack.Screen name="Browser" component={BrowserScreen} />
-        <Stack.Screen name="Files" component={FilesScreen} />
         <Stack.Screen name="Mirror" component={MirrorScreen} />
       </Stack.Navigator>
     </NavigationContainer>
@@ -46,13 +45,6 @@ function HomeScreen({navigation}) {
         <View style={styles.square} elevation={1}>
           <Icon  style={styles.children} color={MD3Colors.primary20} source="web" size={50} />
           <Text style={styles.children} variant="headlineLarge">Browser</Text>
-        </View>
-      </TouchableRipple>
-
-      <TouchableRipple rippleColor="rgba(0, 0, 0, .32)" onPress={() => navigation.navigate('Files')}>
-        <View style={styles.square} elevation={1}>
-          <Icon  style={styles.children} color={MD3Colors.primary20} source="folder" size={50} />
-          <Text style={styles.children} variant="headlineLarge">Files</Text>
         </View>
       </TouchableRipple>
 
@@ -211,26 +203,6 @@ function BrowserScreen({navigation}) {
   );
 }
 
-function FilesScreen({navigation}) {
-  return (
-    <PaperProvider theme = {theme} style={styles.surface}>
-    <View style={{flex: 1,backgroundColor: "#27222b"}}>
-    <StatusBar hidden/>
-
-    <Surface style={styles.surface} elevation={0} >
-      <Text style={styles.surface} variant="headlineLarge">Downloads </Text>
-    </Surface> 
-    <Button style={styles.filebtn} compact="true" mode="contained" onPress={() => navigation.navigate("Home")}>
-        ← Home
-      </Button>
-    </View>
-    </PaperProvider>
-
-
-  );
-  
-  
-}
 
 function MirrorScreen({navigation}) {
   return (
