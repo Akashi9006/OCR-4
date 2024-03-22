@@ -5,10 +5,12 @@ import { PaperProvider, MD3DarkTheme, Surface, Button,TouchableRipple,Text, Icon
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import YoutubePlayer from 'react-native-youtube-iframe';
+import {WebView} from 'react-native-webview';
 //import App from './src/App';
 
 const Stack = createNativeStackNavigator();
 const theme = {...MD3DarkTheme,};
+
 
 export default function App() {
   return (
@@ -159,7 +161,7 @@ function YTScreen({navigation}) {
           const currentTime = e.currentTime / e.duration;
         }}
       />
-      <View style={{ height: 400, alignSelf:"baseline" }}>
+      <View style={{ height: 400 }}>
         <FlatList
           data={recommendations}
           keyExtractor={(item, index) => item.id + index}
@@ -171,7 +173,7 @@ function YTScreen({navigation}) {
                 refreshScreen();
               }}
             >
-              <View style={{ flexDirection: 'row', padding: 10, alignItems: 'center', flexWrap: 'wrap' }}>
+              <View style={{ flexDirection: 'row', flex: 1, padding: 10, alignItems: 'center', flexWrap: 'wrap' }}>
                 {item.snippet.thumbnails && item.snippet.thumbnails.medium && item.snippet.thumbnails.medium.url && (
                   <Image source={{ uri: item.snippet.thumbnails.medium.url }} style={{ aspectRatio: 16 / 9, height: 90, marginRight: 10 }} />
                 )}
@@ -195,16 +197,15 @@ function YTScreen({navigation}) {
 function BrowserScreen({navigation}) {
   return (
     <PaperProvider theme = {theme} style={styles.surface}>
-    <View style={{flex: 1,backgroundColor: "#27222b"}}>
+    <View style={{backgroundColor: "#27222b"}}>
     <StatusBar hidden/>
-
-    <Surface style={styles.surface} elevation={0} >
-      <Text style={styles.children} variant="headlineLarge">Browser</Text>
-      <Button compact="true" mode="contained" onPress={() => navigation.navigate("Home")}>
-        Go Home
-      </Button>
-    </Surface>  
-
+    <View style={{width:'100%',height:'100%'}}>
+      <WebView
+        scalesPageToFit={false}
+        source={{ uri: 'https://www.google.com' }}
+        onLoad={console.log('Loaded')}
+      />
+    </View>
     </View>
     </PaperProvider>
   );
@@ -217,15 +218,18 @@ function FilesScreen({navigation}) {
     <StatusBar hidden/>
 
     <Surface style={styles.surface} elevation={0} >
-      <Text style={styles.children} variant="headlineLarge">Files</Text>
-      <Button compact="true" mode="contained" onPress={() => navigation.navigate("Home")}>
-        Go Home
+      <Text style={styles.surface} variant="headlineLarge">Downloads </Text>
+    </Surface> 
+    <Button style={styles.filebtn} compact="true" mode="contained" onPress={() => navigation.navigate("Home")}>
+        ← Home
       </Button>
-    </Surface>  
-
     </View>
     </PaperProvider>
+
+
   );
+  
+  
 }
 
 function MirrorScreen({navigation}) {
@@ -252,4 +256,7 @@ const styles = StyleSheet.create({
   square: {padding: 15,margin: 10 ,height: 120 ,width: 150,alignItems: 'center',justifyContent: 'space-between', alignSelf:"center", backgroundColor:MD3Colors.primary80,borderRadius: 20},
   children: {padding: 0,margin: 0 ,alignItems:"flex-end",justifyContent: "space-evenly", alignSelf:"center", fontSize:28, fontWeight:"bold", color:MD3Colors.primary20,backgroundColor:MD3Colors.primary80},
   youtubePlayer: {alignSelf: 'stretch',height: 200,},
+  filebtn: {position: 'absolute', top:20,left:20,},
+  
+
 });
